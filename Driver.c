@@ -1,4 +1,4 @@
-/* UART with RGB LED Driver for Mock Testing (No Hardware) */
+/* UART with RGB LED Driver for Mock Testing (No Hardware) 
 
 // Header Files
 #include <linux/kernel.h>
@@ -193,9 +193,10 @@ module_exit(gpio_driver_exit);
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Your Name");
 MODULE_DESCRIPTION("UART with RGB LED driver for Raspberry Pi 2 GPIO (Mocked for Testing)");
-MODULE_VERSION("1.0");
+MODULE_VERSION("1.0");*/
 
-/*
+
+
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/fs.h>
@@ -345,5 +346,3 @@ MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Your Name");
 MODULE_DESCRIPTION("A UART and LED control driver");
 MODULE_VERSION("1.0");
-
-*/
