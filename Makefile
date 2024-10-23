@@ -1,43 +1,46 @@
-# Makefile for UART LED kernel module and user-space programs
+# Define the cross-compiler (if you're cross-compiling for Raspberry Pi/BeagleBone)
+# CROSS_COMPILE ?= arm-linux-gnueabihf-
 
-# Kernel build options
+# Kernel source directory
 KDIR := /lib/modules/$(shell uname -r)/build
-PWD := $(shell pwd)
 
-# Target executables
-TARGETS := read write
+# Module name
+MODULE_NAME := uart_rgb_led
+
+# Source files
+MODULE_SRC := driver.c
+USER_SRC := user_program.c
+
+# Compiler options
+CC := $(CROSS_COMPILE)gcc
+CFLAGS := -Wall
 
 # Default target
-all: module user
+all: $(MODULE_NAME).ko user_program
 
-# Build kernel module
-module:
+# Compile kernel module
+$(MODULE_NAME).ko: $(MODULE_SRC)
 	$(MAKE) -C $(KDIR) M=$(PWD) modules
 
-# Build user-space programs
-user: $(TARGETS)
+# Compile user-space application
+user_program: $(USER_SRC)
+	$(CC) $(CFLAGS) -o user_program $(USER_SRC)
 
-read: uart_read.c
-	gcc -o read uart_read.c
-
-write: uart_write.c
-	gcc -o write uart_write.c
-
-# Clean the build
+# Clean up object files and the module
 clean:
 	$(MAKE) -C $(KDIR) M=$(PWD) clean
-	rm -f $(TARGETS)
+	rm -f user_program
 
-# Unload and clean the device file
-unload:
-	sudo rmmod Driver
-	sudo rm -f /dev/devUART0
-
-# Load the kernel module and create device file
+# Load the module
 load:
-	sudo insmod Driver.ko
-	sudo mknod /dev/devUART0 c 89 0
-	sudo chmod 666 /dev/devUART0
+	sudo insmod $(MODULE_NAME).ko
 
-.PHONY: all module user clean unload load
+# Unload the module
+unload:
+	sudo rmmod $(MODULE_NAME)
 
+# Display kernel log
+dmesg:
+	dmesg | tail -n 20
+
+.PHONY: all clean load unload dmesg
