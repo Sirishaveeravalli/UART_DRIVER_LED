@@ -81,9 +81,9 @@ static int dev_release(struct inode *inodep, struct file *filep) {
     return 0;
 }
 
-// Module initialization
+
 static int __init devUART0_init(void) {
-    // Register character device
+  
     major_number = register_chrdev(0, DEVICE_NAME, &fops);
     if (major_number < 0) {
         printk(KERN_ALERT "devUART0: Failed to register a major number\n");
@@ -91,7 +91,7 @@ static int __init devUART0_init(void) {
     }
     printk(KERN_INFO "devUART0: Registered with major number %d\n", major_number);
 
-    // Request GPIOs for LEDs
+    
     gpio_request_one(LED_R_PIN, GPIOF_OUT_INIT_LOW, "LED_R");
     gpio_request_one(LED_G_PIN, GPIOF_OUT_INIT_LOW, "LED_G");
     gpio_request_one(LED_B_PIN, GPIOF_OUT_INIT_LOW, "LED_B");
@@ -99,9 +99,9 @@ static int __init devUART0_init(void) {
     return 0;
 }
 
-// Module cleanup
+
 static void __exit devUART0_exit(void) {
-    // Turn off all LEDs and free GPIOs
+    
     set_led_state(LED_R_PIN, 0);
     set_led_state(LED_G_PIN, 0);
     set_led_state(LED_B_PIN, 0);
@@ -109,7 +109,7 @@ static void __exit devUART0_exit(void) {
     gpio_free(LED_G_PIN);
     gpio_free(LED_B_PIN);
 
-    // Unregister character device
+  
     unregister_chrdev(major_number, DEVICE_NAME);
     printk(KERN_INFO "devUART0: Unregistered and cleaned up\n");
 }
