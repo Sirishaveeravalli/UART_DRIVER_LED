@@ -118,6 +118,6 @@ module_init(devUART0_init);
 module_exit(devUART0_exit);
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("Sirisha");
 MODULE_DESCRIPTION("UART Driver with RGB LED Integration");
 MODULE_VERSION("1.0");
