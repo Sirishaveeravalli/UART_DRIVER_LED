@@ -6,10 +6,10 @@
 #include <linux/timer.h>
 #include <linux/delay.h>
 
-#define DEVICE_NAME "devUART0"     // Device name in /dev/
-#define BUF_LEN 80                 // Max length of the message buffer
+#define DEVICE_NAME "devUART"     // Device name in /dev/
+#define BUF_LEN 100                 // Max length of the message buffer
 
-// GPIO Pins for RGB LED (adjust according to your setup)
+//gpio Pins
 #define LED_R_PIN 16
 #define LED_G_PIN 20
 #define LED_B_PIN 21
