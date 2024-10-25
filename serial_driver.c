@@ -10,25 +10,22 @@
 #include <asm/io.h>
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Your Name");
+MODULE_AUTHOR("Sirisha");
 MODULE_DESCRIPTION("UART-0 Character Driver with RGB LED Control");
 
 #define MYDEV_NAME        "devUART0"
 #define MYDEV_MAJOR       42
-#define SER_IOBASE        0x3f8    // I/O base for UART-0
-#define SER_IRQ           4        // IRQ for UART-0
+#define SER_IOBASE        0x3f8    
+#define SER_IRQ           4        
 
-// Define GPIO pins for RGB LED
 #define LED_R_PIN         16
 #define LED_G_PIN         20
 #define LED_B_PIN         21
 
-// ioctl command definitions
 #define IOCTL_SET_BAUDRATE _IOW(MYDEV_MAJOR, 0, int)
 #define IOCTL_GET_BAUDRATE _IOR(MYDEV_MAJOR, 1, int)
 #define IOCTL_RESET_BUFFER _IO(MYDEV_MAJOR, 2)
 
-// Circular buffer structure
 #define MAXSIZE           4000
 typedef struct CircularBuf {
     int RdIndex;
